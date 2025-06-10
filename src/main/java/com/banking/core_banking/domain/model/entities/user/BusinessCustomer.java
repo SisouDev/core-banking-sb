@@ -1,10 +1,11 @@
 package com.banking.core_banking.domain.model.entities.user;
 
+import com.banking.core_banking.domain.model.enums.user.CustomerType;
 import com.banking.core_banking.domain.model.utils.Address;
+import com.banking.core_banking.domain.model.utils.ValidRegistrationNumber;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -13,7 +14,7 @@ import lombok.ToString;
 @DiscriminatorValue("BUSINESS")
 @Getter
 @ToString(callSuper = true)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class BusinessCustomer extends Customer{
     @Column(nullable = false)
     private String companyName;
@@ -22,6 +23,7 @@ public class BusinessCustomer extends Customer{
     private String tradeName;
 
     @Column(unique = true, nullable = false)
+    @ValidRegistrationNumber(type = CustomerType.BUSINESS)
     private String registrationNumber ;
 
     private BusinessCustomer(User user, Address address, String phone, String companyName, String registrationNumber, String tradeName){

@@ -12,7 +12,7 @@ import java.util.Objects;
 @Table(name = "employees")
 @Getter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Employee {
     @Id

@@ -4,15 +4,17 @@ import lombok.Getter;
 
 @Getter
 public enum Role {
-    ACCOUNT_MANAGER("Account Manager"),
-    ANALYST("Analyst"),
-    ADMIN("Administrator"),
-    CUSTOMER("Customer");
+    ACCOUNT_MANAGER("Account Manager", "AM"),
+    ANALYST("Analyst", "AN"),
+    ADMIN("Administrator", "AD"),
+    CUSTOMER("Customer", "CS");
 
     private final String displayName;
+    private final String abbreviation;
 
-    Role(String displayName){
+    Role(String displayName, String abbreviation){
         this.displayName = displayName;
+        this.abbreviation = abbreviation;
     }
 
 }

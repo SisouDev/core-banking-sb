@@ -13,7 +13,7 @@ import java.util.Objects;
 @DiscriminatorColumn(name = "customer_type", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Customer {
     @Id
@@ -32,6 +32,8 @@ public abstract class Customer {
     private User user;
 
     public abstract String getDisplayName();
+
+    public abstract String getRegistrationNumber();
 
     @Override
     public final boolean equals(Object o) {

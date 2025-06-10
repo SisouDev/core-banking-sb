@@ -1,10 +1,11 @@
 package com.banking.core_banking.domain.model.entities.user;
 
+import com.banking.core_banking.domain.model.enums.user.CustomerType;
 import com.banking.core_banking.domain.model.utils.Address;
+import com.banking.core_banking.domain.model.utils.ValidRegistrationNumber;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -15,12 +16,13 @@ import java.time.LocalDate;
 @DiscriminatorValue("PERSONAL")
 @Getter
 @ToString(callSuper = true)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class PersonalCustomer extends Customer{
     @Column(nullable = false)
     private String name;
 
     @Column(unique = true, nullable = false)
+    @ValidRegistrationNumber(type = CustomerType.PERSONAL)
     private String registrationNumber;
 
     @Column(nullable = false)

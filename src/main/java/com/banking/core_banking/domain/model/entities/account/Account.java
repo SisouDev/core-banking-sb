@@ -21,7 +21,7 @@ import com.banking.core_banking.domain.model.entities.user.AccountManager;
 @Table(name = "accounts")
 @Getter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Account {
     @Id

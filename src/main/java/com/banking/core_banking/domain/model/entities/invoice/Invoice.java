@@ -16,7 +16,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "invoices")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 public class Invoice {

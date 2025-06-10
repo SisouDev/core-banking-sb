@@ -14,7 +14,7 @@ import java.util.Objects;
 @Table(name = "card_credit_functions")
 @Getter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CreditFunction {
     @Id

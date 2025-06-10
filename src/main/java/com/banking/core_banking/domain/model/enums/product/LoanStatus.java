@@ -1,4 +1,4 @@
-package com.banking.core_banking.domain.model.enums.loan;
+package com.banking.core_banking.domain.model.enums.product;
 
 import lombok.Getter;
 

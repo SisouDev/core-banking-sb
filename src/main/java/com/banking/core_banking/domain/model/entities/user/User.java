@@ -16,7 +16,7 @@ import java.util.Objects;
 @Table(name = "users")
 @Getter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class User {
     @Id

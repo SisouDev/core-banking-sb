@@ -14,7 +14,7 @@ import java.util.Objects;
 @Table(name = "cards")
 @Getter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Card {
     @Id

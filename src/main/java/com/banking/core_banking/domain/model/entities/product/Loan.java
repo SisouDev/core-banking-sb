@@ -1,6 +1,6 @@
-package com.banking.core_banking.domain.model.entities.loan;
+package com.banking.core_banking.domain.model.entities.product;
 
-import com.banking.core_banking.domain.model.enums.loan.LoanStatus;
+import com.banking.core_banking.domain.model.enums.product.LoanStatus;
 import com.banking.core_banking.domain.model.utils.FinancialCalculator;
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,7 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 import com.banking.core_banking.domain.model.entities.user.Customer;
-import com.banking.core_banking.domain.model.entities.product.LoanProduct;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -21,7 +21,7 @@ import java.util.Objects;
 @Table(name = "loans")
 @Getter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Loan {
     @Id

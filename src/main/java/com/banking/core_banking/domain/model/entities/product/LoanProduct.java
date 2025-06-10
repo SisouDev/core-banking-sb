@@ -3,7 +3,6 @@ package com.banking.core_banking.domain.model.entities.product;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -14,7 +13,7 @@ import java.math.BigDecimal;
 @DiscriminatorValue("LOAN")
 @Getter
 @ToString(callSuper = true)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class LoanProduct extends BankingProduct{
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal minAmount;

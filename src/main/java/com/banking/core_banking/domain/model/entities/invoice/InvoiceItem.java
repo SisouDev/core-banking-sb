@@ -12,7 +12,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "invoice_items")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 public class InvoiceItem {

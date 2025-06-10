@@ -1,6 +1,6 @@
-package com.banking.core_banking.domain.model.entities.loan;
+package com.banking.core_banking.domain.model.entities.product;
 
-import com.banking.core_banking.domain.model.enums.loan.InstallmentStatus;
+import com.banking.core_banking.domain.model.enums.product.InstallmentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -14,7 +14,7 @@ import java.util.Objects;
 @Table(name = "loan_installments")
 @Getter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoanInstallment {
     @Id
