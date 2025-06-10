@@ -1,4 +1,4 @@
-package com.banking.core_banking.domain.model.dto.user.request;
+package com.banking.core_banking.domain.model.dto.admin.request;
 
 import com.banking.core_banking.domain.model.enums.user.UserStatus;
 import jakarta.validation.constraints.NotNull;
