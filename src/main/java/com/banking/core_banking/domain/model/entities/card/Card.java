@@ -32,6 +32,7 @@ public class Card {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Setter
     private CardStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)

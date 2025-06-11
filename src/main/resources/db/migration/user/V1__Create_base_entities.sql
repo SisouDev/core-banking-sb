@@ -1,3 +1,11 @@
+CREATE TABLE employee_registration_sequence (
+                                                id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);
+
+CREATE TABLE account_number_sequence (
+                                         id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);
+
 CREATE TABLE users (
                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
                        email VARCHAR(255) NOT NULL UNIQUE,

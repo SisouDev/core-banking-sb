@@ -122,6 +122,13 @@ public class Account {
         this.transactions.add(transaction);
     }
 
+    public Transaction getLatestTransaction() {
+        if (this.transactions == null || this.transactions.isEmpty()) {
+            return null;
+        }
+        return this.transactions.getLast();
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;

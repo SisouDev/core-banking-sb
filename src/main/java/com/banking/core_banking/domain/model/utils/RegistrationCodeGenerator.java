@@ -1,6 +1,7 @@
 package com.banking.core_banking.domain.model.utils;
 
 import com.banking.core_banking.domain.model.enums.user.Role;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -18,6 +19,7 @@ public class RegistrationCodeGenerator {
     private final JdbcTemplate jdbcTemplate;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyMMdd");
 
+    @Autowired
     public RegistrationCodeGenerator(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -31,7 +33,6 @@ public class RegistrationCodeGenerator {
         String datePart = LocalDate.now().format(DATE_FORMATTER);
 
         Long sequenceValue = getNextSequenceValue();
-
         String sequentialPart = String.format("%04d", sequenceValue);
 
         return rolePrefix + datePart + sequentialPart;

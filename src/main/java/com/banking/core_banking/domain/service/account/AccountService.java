@@ -7,6 +7,7 @@ import com.banking.core_banking.domain.model.dto.account.request.WithdrawRequest
 import com.banking.core_banking.domain.model.dto.account.response.AccountDetailsResponse;
 import com.banking.core_banking.domain.model.dto.account.response.AccountSummaryResponse;
 import com.banking.core_banking.domain.model.dto.account.response.StatementLineResponse;
+import com.banking.core_banking.domain.model.dto.account.response.TransactionResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,9 +19,9 @@ public interface AccountService {
     Page<AccountSummaryResponse> getAccountsByCustomerId(Long customerId, Pageable pageable);
     Page<StatementLineResponse> getAccountStatement(Long accountId, Pageable pageable);
 
-    void deposit(Long accountId, DepositRequest request);
+    TransactionResponse deposit(Long accountId, DepositRequest request);
 
-    void withdraw(Long accountId, WithdrawRequest request);
+    TransactionResponse withdraw(Long accountId, WithdrawRequest request);
 
     void transfer(Long sourceAccountId, TransferRequest request);
 }
