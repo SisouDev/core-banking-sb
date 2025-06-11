@@ -10,7 +10,7 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Component
-public class JwtTokenProvider {
+public class JwtTokenProvider implements TokenProvider{
 
     @Value("${app.jwt.secret}")
     private String jwtSecret;
@@ -50,7 +50,7 @@ public class JwtTokenProvider {
                 .parseSignedClaims(token)
                 .getPayload();
 
-        return Long.parseLong(claims.getSubject());
+        return (Long) Long.parseLong(claims.getSubject());
     }
 
 }

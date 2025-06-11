@@ -6,14 +6,13 @@ import com.banking.core_banking.domain.model.dto.user.response.UserResponse;
 import com.banking.core_banking.domain.model.entities.user.User;
 import com.banking.core_banking.domain.repository.user.UserRepository;
 import com.banking.core_banking.domain.service.user.UserAdminService;
+import com.banking.core_banking.exceptions.others.ResourceNotFoundException;
 import com.banking.core_banking.infra.mapper.user.UserMapper;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
-
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserAdminServiceImpl implements UserAdminService {
@@ -39,7 +38,7 @@ public class UserAdminServiceImpl implements UserAdminService {
     @Override
     public UserResponse getUserById(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         return userMapper.toDto(user);
     }
 
@@ -47,7 +46,7 @@ public class UserAdminServiceImpl implements UserAdminService {
     @Transactional
     public UserResponse changeUserStatus(Long userId, AdminUserStatusUpdateRequest request) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         user.setUserStatus(request.newStatus());
         User updatedUser = userRepository.save(user);
         return userMapper.toDto(updatedUser);
@@ -57,7 +56,7 @@ public class UserAdminServiceImpl implements UserAdminService {
     @Transactional
     public UserResponse changeUserRole(Long userId, AdminUserRoleUpdateRequest request) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         user.setRole(request.newRole());
         User updatedUser = userRepository.save(user);
         return userMapper.toDto(updatedUser);

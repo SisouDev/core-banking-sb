@@ -15,9 +15,6 @@ public class CardDetailsGenerator {
         this.cardRepository = cardRepository;
     }
 
-    /**
-     * Gera um número de cartão de 16 dígitos único.
-     */
     public String generateCardNumber() {
         Random random = new Random();
         String cardNumber;

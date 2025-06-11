@@ -48,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
         );
         User user = (User) authentication.getPrincipal();
         String accessToken = tokenProvider.generateToken(user);
-        return new LoginResponse(accessToken, 3600L, userMapper.toDto(user));
+        return new LoginResponse(accessToken, Long.valueOf(3600), userMapper.toDto(user));
     }
 
     @Override
