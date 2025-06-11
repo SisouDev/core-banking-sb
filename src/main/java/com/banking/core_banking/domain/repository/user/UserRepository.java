@@ -9,9 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import org.springframework.data.domain.Pageable;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     Page<User> findAll(Pageable pageable);
 
     boolean existsByEmail(@NotBlank @Email String email);
+
+    <T> Optional<T> findByEmail(String email);
 }
