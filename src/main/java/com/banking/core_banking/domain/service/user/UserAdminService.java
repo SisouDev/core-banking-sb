@@ -5,7 +5,7 @@ import com.banking.core_banking.domain.model.dto.admin.request.AdminUserStatusUp
 import com.banking.core_banking.domain.model.dto.user.response.UserResponse;
 import org.springframework.data.domain.Page;
 
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
 
 public interface UserAdminService {
     Page<UserResponse> listAllUsers(Pageable pageable);

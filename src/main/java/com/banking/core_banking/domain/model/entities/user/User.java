@@ -15,6 +15,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -48,6 +49,14 @@ public class User {
 
     public static User create(String email, String hashedPassword){
         return new User(null, email, hashedPassword, Role.CUSTOMER, UserStatus.PENDING_VERIFICATION, null, null);
+    }
+
+    public static User createForEmployee(String email, String hashedPassword, Role role) {
+        if (role == Role.CUSTOMER) {
+            throw new IllegalArgumentException("An employee cannot have the CUSTOMER role.");
+        }
+
+        return new User(null, email, hashedPassword, role, UserStatus.ACTIVE, null, null);
     }
 
     @Override

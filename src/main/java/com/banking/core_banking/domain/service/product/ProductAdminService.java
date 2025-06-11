@@ -5,7 +5,7 @@ import com.banking.core_banking.domain.model.dto.product.request.LoanProductUpda
 import com.banking.core_banking.domain.model.dto.product.response.BankingProductResponse;
 import org.springframework.data.domain.Page;
 
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
 
 public interface ProductAdminService {
     BankingProductResponse createLoanProduct(LoanProductCreateRequest request);

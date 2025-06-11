@@ -6,7 +6,7 @@ import com.banking.core_banking.domain.model.dto.product.response.LoanDetailsRes
 import com.banking.core_banking.domain.model.dto.product.response.LoanSummaryResponse;
 import org.springframework.data.domain.Page;
 
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
 
 public interface LoanService {
     LoanDetailsResponse applyForLoan(LoanApplicationRequest request);
