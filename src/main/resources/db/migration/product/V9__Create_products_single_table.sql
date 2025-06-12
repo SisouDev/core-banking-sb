@@ -5,7 +5,7 @@ CREATE TABLE banking_products (
                                   description TEXT NOT NULL,
                                   active BOOLEAN NOT NULL DEFAULT true,
 
-    -- Campos de LoanProduct (nullable)
+
                                   min_amount DECIMAL(19, 2),
                                   max_amount DECIMAL(19, 2),
                                   default_interest_rate DECIMAL(10, 4),

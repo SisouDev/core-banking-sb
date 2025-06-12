@@ -20,9 +20,19 @@ public abstract class ProductMapper {
     @Mapping(source = "active", target = "isActive")
     protected abstract LoanProductResponse toLoanProductDto(LoanProduct loanProduct);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "active", ignore = true)
-    public abstract LoanProduct toEntity(LoanProductCreateRequest request);
+    public LoanProduct toEntity(LoanProductCreateRequest request) {
+        if (request == null) {
+            return null;
+        }
+        return LoanProduct.create(
+                request.name(),
+                request.description(),
+                request.minAmount(),
+                request.maxAmount(),
+                request.defaultInterestRate(),
+                request.maxInstallments()
+        );
+    }
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)

@@ -11,6 +11,7 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "product_type", discriminatorType = DiscriminatorType.STRING)
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)

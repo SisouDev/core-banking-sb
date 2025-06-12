@@ -20,6 +20,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "loans")
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
