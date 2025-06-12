@@ -10,6 +10,7 @@ import com.banking.core_banking.domain.repository.user.EmployeeRepository;
 import com.banking.core_banking.domain.repository.user.UserRepository;
 import com.banking.core_banking.domain.service.user.EmployeeService;
 import com.banking.core_banking.exceptions.others.BusinessException;
+import com.banking.core_banking.exceptions.others.ResourceNotFoundException;
 import com.banking.core_banking.infra.mapper.user.EmployeeMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -67,7 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeResponse getEmployeeById(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new EntityNotFoundException("Employee not found with id: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + employeeId));
         return employeeMapper.toDto(employee);
     }
 
@@ -81,7 +82,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public EmployeeResponse updateEmployee(Long employeeId, EmployeeUpdateRequest request) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new EntityNotFoundException("Employee not found with id: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + employeeId));
         employeeMapper.updateFromDto(request, employee);
         Employee updatedEmployee = employeeRepository.save(employee);
         return employeeMapper.toDto(updatedEmployee);
