@@ -1,5 +1,6 @@
 package com.banking.core_banking.infra.service.user;
 
+import com.banking.core_banking.domain.model.dto.user.request.AddressCreateRequest;
 import com.banking.core_banking.domain.model.dto.user.request.BusinessCustomerCreateRequest;
 import com.banking.core_banking.domain.model.dto.user.request.PersonalCustomerCreateRequest;
 import com.banking.core_banking.domain.model.dto.user.request.UserUpdateRequest;
@@ -8,6 +9,7 @@ import com.banking.core_banking.domain.model.entities.user.BusinessCustomer;
 import com.banking.core_banking.domain.model.entities.user.Customer;
 import com.banking.core_banking.domain.model.entities.user.PersonalCustomer;
 import com.banking.core_banking.domain.model.entities.user.User;
+import com.banking.core_banking.domain.model.utils.Address;
 import com.banking.core_banking.domain.repository.user.CustomerRepository;
 import com.banking.core_banking.domain.repository.user.UserRepository;
 import com.banking.core_banking.domain.service.user.CustomerService;
@@ -49,9 +51,26 @@ public class CustomerServiceImpl implements CustomerService {
         }
         String hashedPassword = passwordEncoder.encode(request.password());
         User newUser = User.create(request.email(), hashedPassword);
-        BusinessCustomer customer = customerMapper.toEntity(request);
 
-        customer.setUser(newUser);
+        AddressCreateRequest addressDto = request.address();
+        Address address = new Address();
+        address.setStreet(addressDto.street());
+        address.setNumber(addressDto.number());
+        address.setComplement(addressDto.complement());
+        address.setNeighborhood(addressDto.neighborhood());
+        address.setCity(addressDto.city());
+        address.setState(addressDto.state());
+        address.setZipCode(addressDto.zipCode());
+        address.setCountryCode(addressDto.countryCode());
+
+        BusinessCustomer customer = BusinessCustomer.create(
+                newUser,
+                address,
+                request.phone(),
+                request.companyName(),
+                request.registrationNumber(),
+                request.tradeName()
+        );
 
         BusinessCustomer savedCustomer = customerRepository.save(customer);
         return customerMapper.toDto(savedCustomer);
@@ -66,8 +85,26 @@ public class CustomerServiceImpl implements CustomerService {
         String hashedPassword = passwordEncoder.encode(request.password());
         User newUser = User.create(request.email(), hashedPassword);
 
-        PersonalCustomer customer = customerMapper.toEntity(request);
-        customer.setUser(newUser);
+        AddressCreateRequest addressDto = request.address();
+        Address address = new Address();
+        address.setStreet(addressDto.street());
+        address.setNumber(addressDto.number());
+        address.setComplement(addressDto.complement());
+        address.setNeighborhood(addressDto.neighborhood());
+        address.setCity(addressDto.city());
+        address.setState(addressDto.state());
+        address.setZipCode(addressDto.zipCode());
+        address.setCountryCode(addressDto.countryCode());
+
+
+        PersonalCustomer customer = PersonalCustomer.create(
+                newUser,
+                address,
+                request.phone(),
+                request.name(),
+                request.registrationNumber(),
+                request.birthDate()
+        );
 
         PersonalCustomer savedCustomer = customerRepository.save(customer);
 

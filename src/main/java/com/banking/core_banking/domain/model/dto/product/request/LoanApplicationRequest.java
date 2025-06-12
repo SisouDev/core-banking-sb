@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public record LoanApplicationRequest(
-        @NotNull Long customerId,
         @NotNull Long productId,
         @NotNull @Positive BigDecimal principalAmount,
         @NotNull @Positive Integer numberOfInstallments

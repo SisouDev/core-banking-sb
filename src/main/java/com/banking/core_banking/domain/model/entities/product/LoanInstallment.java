@@ -48,7 +48,7 @@ public class LoanInstallment {
     @ToString.Exclude
     private Loan loan;
 
-    static LoanInstallment create(Loan loan, Integer installmentNumber, BigDecimal totalAmount, BigDecimal principalAmount, BigDecimal interestAmount, LocalDate dueDate) {
+    public static LoanInstallment create(Loan loan, Integer installmentNumber, BigDecimal totalAmount, BigDecimal principalAmount, BigDecimal interestAmount, LocalDate dueDate) {
         if (loan == null || installmentNumber <= 0 || totalAmount.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Invalid installment data provided.");
         }

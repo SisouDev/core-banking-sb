@@ -4,23 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 @Component
 public class AccountNumberGenerator {
 
-    private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public AccountNumberGenerator(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public AccountNumberGenerator() {
     }
 
     public String generate() {
-        Long sequenceValue = jdbcTemplate.queryForObject("SELECT NEXT VALUE FOR account_number_sequence", Long.class);
-        if (sequenceValue == null) {
-            throw new IllegalStateException("Could not retrieve a value from the account number sequence.");
-        }
+        long baseValue = ThreadLocalRandom.current().nextLong(10_000_000L, 100_000_000L);
 
-        String baseNumber = String.format("%08d", sequenceValue);
+        String baseNumber = String.format("%08d", baseValue);
 
         int checkDigit = calculateCheckDigit(baseNumber);
 

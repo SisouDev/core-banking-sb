@@ -15,7 +15,9 @@ public class RegistrationNumberValidator implements ConstraintValidator<ValidReg
 
     @Override
     public boolean isValid(String registrationNumber, ConstraintValidatorContext context) {
-        if (registrationNumber == null || registrationNumber.isBlank()) return false;
+        if (registrationNumber == null || registrationNumber.isBlank()) {
+            return false;
+        }
 
         return switch (type) {
             case PERSONAL ->

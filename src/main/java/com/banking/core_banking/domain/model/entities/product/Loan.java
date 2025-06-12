@@ -2,6 +2,7 @@ package com.banking.core_banking.domain.model.entities.product;
 
 import com.banking.core_banking.domain.model.enums.product.LoanStatus;
 import com.banking.core_banking.domain.model.utils.FinancialCalculator;
+import com.banking.core_banking.exceptions.others.BusinessException;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -93,6 +94,14 @@ public class Loan {
         newLoan.generateInstallments();
 
         return newLoan;
+    }
+
+    public void approve() {
+        if (this.status != LoanStatus.REQUESTED) {
+            throw new BusinessException("Only loans with REQUESTED status can be approved.");
+        }
+        this.status = LoanStatus.APPROVED;
+        this.disbursementDate = LocalDateTime.now();
     }
 
     private void generateInstallments() {

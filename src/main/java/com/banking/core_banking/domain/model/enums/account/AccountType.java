@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum AccountType {
-    CHECKING_ACCOUNT("Checking account"),
-    SAVINGS_ACCOUNT("Savings account");
+    CHECKING_ACCOUNT("CHECKING"),
+    SAVINGS_ACCOUNT("SAVINGS");
 
     private final String displayName;
 

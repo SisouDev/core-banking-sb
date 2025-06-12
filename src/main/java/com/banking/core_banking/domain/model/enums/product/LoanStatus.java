@@ -6,7 +6,9 @@ import lombok.Getter;
 public enum LoanStatus {
     ACTIVE("Active"),
     PAID_OFF("Paid off"),
-    IN_DEFAULT("In default");
+    IN_DEFAULT("In default"),
+    APPROVED("Approved"),
+    REQUESTED("Requested");
 
     private final String displayName;
 

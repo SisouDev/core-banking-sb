@@ -5,6 +5,9 @@ import com.banking.core_banking.domain.model.dto.card.request.CardStatusUpdateRe
 import com.banking.core_banking.domain.model.dto.card.request.CreditFunctionActivateRequest;
 import com.banking.core_banking.domain.model.dto.card.request.DebitFunctionActivateRequest;
 import com.banking.core_banking.domain.model.dto.card.response.CardResponse;
+import com.banking.core_banking.domain.model.entities.user.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface CardService {
     CardResponse createCardForAccount(CardCreateRequest request);
@@ -13,4 +16,7 @@ public interface CardService {
     CardResponse activateCreditFunction(Long cardId, CreditFunctionActivateRequest request);
 
     void updateCardStatus(Long cardId, CardStatusUpdateRequest request);
+    CardResponse createCard(User loggedInUser, CardCreateRequest request);
+    Page<CardResponse> getAllCardsForUser(User loggedInUser, Pageable pageable);
+    CardResponse getCardDetails(User loggedInUser, Long cardId);
 }
