@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 public record WithdrawRequest(
         @NotNull
         @Positive(message = "Withdrawal amount must be positive.")
-        BigDecimal amount
+        BigDecimal amount,
+        String message
 ) {
 }

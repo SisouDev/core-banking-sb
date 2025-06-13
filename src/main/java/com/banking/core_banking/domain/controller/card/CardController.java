@@ -1,6 +1,9 @@
 package com.banking.core_banking.domain.controller.card;
 
 import com.banking.core_banking.domain.model.dto.card.request.CardCreateRequest;
+import com.banking.core_banking.domain.model.dto.card.request.CardStatusUpdateRequest;
+import com.banking.core_banking.domain.model.dto.card.request.CreditFunctionActivateRequest;
+import com.banking.core_banking.domain.model.dto.card.request.DebitFunctionActivateRequest;
 import com.banking.core_banking.domain.model.dto.card.response.CardResponse;
 import com.banking.core_banking.domain.model.dto.product.response.LoanDetailsResponse;
 import com.banking.core_banking.domain.model.entities.user.User;
@@ -33,6 +36,26 @@ public class CardController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PostMapping("/{cardId}/activation/debit")
+    public ResponseEntity<CardResponse> activateDebitFunction(
+            @AuthenticationPrincipal User loggedInUser,
+            @PathVariable Long cardId,
+            @Valid @RequestBody DebitFunctionActivateRequest request
+    ) {
+        CardResponse response = cardService.activateDebitFunction(loggedInUser, cardId, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/{cardId}/activation/credit")
+    public ResponseEntity<CardResponse> activateCreditFunction(
+            @AuthenticationPrincipal User loggedInUser,
+            @PathVariable Long cardId,
+            @Valid @RequestBody CreditFunctionActivateRequest request
+    ) {
+        CardResponse response = cardService.activateCreditFunction(loggedInUser, cardId, request);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping
     public ResponseEntity<Page<CardResponse>> getAllCards(
             @AuthenticationPrincipal User loggedInUser,
@@ -48,6 +71,16 @@ public class CardController {
             @PathVariable Long cardId
     ) {
         CardResponse response = cardService.getCardDetails(loggedInUser, cardId);
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{cardId}")
+    public ResponseEntity<CardResponse> updateCardStatus(
+            @AuthenticationPrincipal User loggedInUser,
+            @PathVariable Long cardId,
+            @Valid @RequestBody CardStatusUpdateRequest request
+    ) {
+        CardResponse response = cardService.updateCardStatus(loggedInUser, cardId, request);
         return ResponseEntity.ok(response);
     }
 }

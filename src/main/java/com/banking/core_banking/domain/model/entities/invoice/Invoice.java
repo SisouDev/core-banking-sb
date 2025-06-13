@@ -54,7 +54,7 @@ public class Invoice {
     @ToString.Exclude
     private List<InvoiceItem> items;
 
-    static Invoice create(CreditFunction creditFunction, YearMonth referenceMonth, LocalDate closingDate, LocalDate dueDate) {
+    public static Invoice create(CreditFunction creditFunction, YearMonth referenceMonth, LocalDate closingDate, LocalDate dueDate) {
         if (creditFunction == null || referenceMonth == null) {
             throw new IllegalArgumentException("Credit function and reference month are required.");
         }

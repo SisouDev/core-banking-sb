@@ -1,6 +1,7 @@
 package com.banking.core_banking.domain.model.entities.card;
 
 import com.banking.core_banking.domain.model.entities.invoice.Invoice;
+import com.banking.core_banking.exceptions.others.BusinessException;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -74,6 +75,16 @@ public class CreditFunction {
         if (this.availableLimit.compareTo(this.creditLimit) > 0) {
             this.availableLimit = this.creditLimit;
         }
+    }
+
+    public void validateLimit(BigDecimal amountToSpend) {
+        if (this.availableLimit.compareTo(amountToSpend) < 0) {
+            throw new BusinessException("Insufficient credit limit.");
+        }
+    }
+
+    public void useCredit(BigDecimal amountToSpend) {
+        this.availableLimit = this.availableLimit.subtract(amountToSpend);
     }
 
     @Override

@@ -12,10 +12,10 @@ import org.springframework.data.domain.Pageable;
 public interface CardService {
     CardResponse createCardForAccount(CardCreateRequest request);
     CardResponse getCardDetails(Long cardId);
-    CardResponse activateDebitFunction(Long cardId, DebitFunctionActivateRequest request);
-    CardResponse activateCreditFunction(Long cardId, CreditFunctionActivateRequest request);
+    CardResponse activateDebitFunction(User loggedInUser, Long cardId, DebitFunctionActivateRequest request);
+    CardResponse activateCreditFunction(User loggedInUser, Long cardId, CreditFunctionActivateRequest request);
 
-    void updateCardStatus(Long cardId, CardStatusUpdateRequest request);
+    CardResponse updateCardStatus(User loggedInUser, Long cardId, CardStatusUpdateRequest request);
     CardResponse createCard(User loggedInUser, CardCreateRequest request);
     Page<CardResponse> getAllCardsForUser(User loggedInUser, Pageable pageable);
     CardResponse getCardDetails(User loggedInUser, Long cardId);

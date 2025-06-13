@@ -2,6 +2,7 @@ package com.banking.core_banking.domain.model.entities.card;
 
 import com.banking.core_banking.domain.model.entities.account.Account;
 import com.banking.core_banking.domain.model.enums.card.CardStatus;
+import com.banking.core_banking.exceptions.others.BusinessException;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -80,6 +81,17 @@ public class Card {
             throw new IllegalStateException("Credit function is already active for this card.");
         }
         this.creditFunction = CreditFunction.create(this, creditLimit, invoiceClosingDay);
+    }
+
+    public void validateForTransaction() {
+        if (this.status != CardStatus.ACTIVE) {
+            throw new BusinessException("Card is not active. Current status: " + this.status);
+        }
+
+        if (YearMonth.now().isAfter(this.expirationDate)) {
+            this.status = CardStatus.EXPIRED;
+            throw new BusinessException("Card is expired. Expiration date: " + this.expirationDate);
+        }
     }
 
     @Override

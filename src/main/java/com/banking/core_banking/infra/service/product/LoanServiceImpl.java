@@ -41,6 +41,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class LoanServiceImpl implements LoanService {
@@ -171,20 +172,31 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     @Transactional
-    public void payInstallment(Long installmentId, LoanInstallmentPaymentRequest request) {
-        LoanInstallment installment = loanInstallmentRepository.findById(installmentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Loan installment not found"));
+    public void payInstallment(User loggedInUser, Long installmentId, LoanInstallmentPaymentRequest request) {
+        Customer customer = customerRepository.findByUserId(loggedInUser.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Customer profile not found for the logged-in user."));
 
-        if (installment.getStatus() == InstallmentStatus.PAID) {
-            throw new BusinessException("This installment has already been paid.");
+        LoanInstallment installment = loanInstallmentRepository.findById(installmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Loan installment not found with id: " + installmentId));
+
+        if (!Objects.equals(installment.getLoan().getCustomer().getId(), customer.getId())) {
+            throw new BusinessException("Installment does not belong to the authenticated user.");
+        }
+
+        Account sourceAccount = accountRepository.findById(request.sourceAccountId())
+                .orElseThrow(() -> new ResourceNotFoundException("Source account not found with id: " + request.sourceAccountId()));
+
+        if(!Objects.equals(sourceAccount.getCustomer().getId(), customer.getId())){
+            throw new BusinessException("Source account does not belong to the authenticated user.");
         }
 
         accountService.withdraw(
-                request.sourceAccountId(),
-                new WithdrawRequest(installment.getTotalAmount())
+                sourceAccount.getId(),
+                new WithdrawRequest(installment.getTotalAmount(), "")
         );
 
         installment.markAsPaid();
+        loanInstallmentRepository.save(installment);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.banking.core_banking.domain.controller.product;
 
 import com.banking.core_banking.domain.model.dto.product.request.LoanApplicationRequest;
+import com.banking.core_banking.domain.model.dto.product.request.LoanInstallmentPaymentRequest;
 import com.banking.core_banking.domain.model.dto.product.response.BankingProductResponse;
 import com.banking.core_banking.domain.model.dto.product.response.LoanDetailsResponse;
 import com.banking.core_banking.domain.model.entities.user.User;
@@ -37,6 +38,16 @@ public class LoanController {
     ) {
         LoanDetailsResponse response = loanService.applyForLoan(loggedInUser, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping("/installments/{installmentId}/pay")
+    public ResponseEntity<Void> payInstallment(
+            @AuthenticationPrincipal User loggedInUser,
+            @PathVariable Long installmentId,
+            @Valid @RequestBody LoanInstallmentPaymentRequest request
+    ) {
+        loanService.payInstallment(loggedInUser, installmentId, request);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{loanId}/approve")

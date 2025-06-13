@@ -14,7 +14,7 @@ public interface LoanService {
     LoanDetailsResponse applyForLoan(User loggedInUser, LoanApplicationRequest request);
     LoanDetailsResponse getLoanDetails(Long loanId);
     Page<LoanSummaryResponse> getLoansForCustomer(Long customerId, Pageable pageable);
-    void payInstallment(Long installmentId, LoanInstallmentPaymentRequest request);
+    void payInstallment(User loggedInUser, Long installmentId, LoanInstallmentPaymentRequest request);
     LoanDetailsResponse approveLoan(Long loanId);
 
     Page<BankingProductResponse> getAvailableLoanProducts(Pageable pageable);

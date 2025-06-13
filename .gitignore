@@ -9,7 +9,11 @@
 .settings
 .springBeans
 .sts4-cache
-
+diagrams
+.diagrams
+diagrams/
+*.diagrams
+*~.diagrams
 
 # Created by https://www.gitignore.io/api/git,java,maven,eclipse,windows
 

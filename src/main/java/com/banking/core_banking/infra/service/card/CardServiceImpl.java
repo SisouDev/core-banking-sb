@@ -76,33 +76,51 @@ public class CardServiceImpl implements CardService {
 
     @Override
     @Transactional
-    public CardResponse activateDebitFunction(Long cardId, DebitFunctionActivateRequest request) {
+    public CardResponse activateDebitFunction(User loggedInUser, Long cardId, DebitFunctionActivateRequest request) {
+        Customer customer = customerRepository.findByUserId(loggedInUser.getId()).orElseThrow();
         Card card = cardRepository.findById(cardId)
                 .orElseThrow(() -> new ResourceNotFoundException("Card not found"));
 
+        if (!Objects.equals(card.getAccount().getCustomer().getId(), customer.getId())) {
+            throw new BusinessException("Card does not belong to the authenticated user.");
+        }
         card.activateDebitFunction(request.dailyWithdrawalLimit(), request.dailyTransactionLimit());
-
-        return cardMapper.toDto(card);
+        Card updatedCard = cardRepository.save(card);
+        return cardMapper.toDto(updatedCard);
     }
 
     @Override
     @Transactional
-    public CardResponse activateCreditFunction(Long cardId, CreditFunctionActivateRequest request) {
+    public CardResponse activateCreditFunction(User loggedInUser, Long cardId, CreditFunctionActivateRequest request) {
+        Customer customer = customerRepository.findByUserId(loggedInUser.getId()).orElseThrow();
         Card card = cardRepository.findById(cardId)
                 .orElseThrow(() -> new ResourceNotFoundException("Card not found"));
+
+        if (!Objects.equals(card.getAccount().getCustomer().getId(), customer.getId())) {
+            throw new BusinessException("Card does not belong to the authenticated user.");
+        }
 
         card.activateCreditFunction(request.creditLimit(), request.invoiceClosingDay());
-
-        return cardMapper.toDto(card);
+        Card updatedCard = cardRepository.save(card);
+        return cardMapper.toDto(updatedCard);
     }
 
     @Override
     @Transactional
-    public void updateCardStatus(Long cardId, CardStatusUpdateRequest request) {
+    public CardResponse updateCardStatus(User loggedInUser, Long cardId, CardStatusUpdateRequest request) {
+        Customer customer = customerRepository.findByUserId(loggedInUser.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Customer profile not found for the logged-in user."));
+
         Card card = cardRepository.findById(cardId)
-                .orElseThrow(() -> new ResourceNotFoundException("Card not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Card not found with id: " + cardId));
+
+        if (!Objects.equals(card.getAccount().getCustomer().getId(), customer.getId())) {
+            throw new BusinessException("Card does not belong to the authenticated user.");
+        }
 
         card.setStatus(request.newStatus());
+        Card updatedCard = cardRepository.save(card);
+        return cardMapper.toDto(updatedCard);
     }
 
     @Override
